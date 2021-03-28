@@ -45,9 +45,40 @@ def invite_to_group(token, group_id, user_id):
 def save_fotos(token, p_id):
     session = vk.Session(access_token=token)
     api = vk.API(session)
-    photos = api.messages.getHistoryAttachments(peer_id=p_id, media_type='photo', start_from=0, count=200, v=5.71,photo_sizes=0)['items']
-    return photos
-
+    p_id = int(api.users.get(user_ids=p_id, v=5.71)[0]['id'])
+    imgs = []
+    i=0
+    can = True
+    while can:
+        last_i=i
+        photos = api.messages.getHistoryAttachments(peer_id=p_id, media_type='photo', start_from=i, count=200, v=5.71,photo_sizes=0)['items']
+        print ('*' * 10)
+        print (i)
+        print(photos)
+        for photo in photos:
+            try:
+                i=photo['message_id']
+                dict = photo ['attachment'] ['photo']
+                del dict ['album_id']
+                del dict ['date']
+                del dict ['id']
+                del dict ['owner_id']
+                del dict ['has_tags']
+                del dict ['access_key']
+                del dict ['height']
+                del dict ['text']
+                del dict ['width']
+                keys = list (dict.keys ())
+                razm = []
+                for key in keys:
+                    razm.append (int (key [6:]))
+                imgs.append (photo ['attachment'] ['photo'] ['photo_{}'.format (max (razm))])
+                print(photo ['attachment'] ['photo'] ['photo_{}'.format (max (razm))])
+            except:
+                can = False
+        if i==last_i:
+            can=False
+    return(imgs)
 #invite_to_group('203465624', 'vasyatk_a')
 
 #send_message('miss_korogodskaya','Ты красная подруга?')

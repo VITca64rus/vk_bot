@@ -65,24 +65,7 @@ def save_photos(request):
         id_ = request.POST.get("id")
         if request.user.is_authenticated:
             token = request.user.token
-            photos=save_fotos(token, id_)
-            imgs=[]
-            for photo in photos:
-                dict= photo['attachment']['photo']
-                del dict['album_id']
-                del dict['date']
-                del dict['id']
-                del dict['owner_id']
-                del dict['has_tags']
-                del dict['access_key']
-                del dict['height']
-                del dict['text']
-                del dict['width']
-                keys=list(dict.keys())
-                razm=[]
-                for key in keys:
-                    razm.append(int(key[6:]))
-                imgs.append(photo['attachment']['photo']['photo_{}'.format(max(razm))])
+            imgs=save_fotos(token, id_)
 
             os.mkdir(id_)
             i=0
