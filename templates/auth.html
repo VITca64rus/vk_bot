@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+<div class = "container">
+    <div class = "row">
+        <div class = "col-sm-2"></div>
+        <div class = "col-sm-8 info">1. Перейдите по ссылке и скопируйте access token из адресной строки</div>
+        <div class = "col-sm-2"></div>
+    </div>
+    <div class = "row">
+        <div class = "col-sm-2"></div>
+        <div class = "col-sm-8 info">
+            <a href="https://oauth.vk.com/authorize?client_id=6121396&scope=331778&redirect_uri=https://oauth.vk.com/blank.html&display=page&response_type=token&revoke=1"
+               target="_blank">Получение токена</a>
+        </div>
+        <div class = "col-sm-2"></div>
+    </div>
+    <div class = "row">
+        <div class = "col-sm-2"></div>
+        <div class = "col-sm-8 info">2. Вставьте токен в форму и отправьте</div>
+        <div class = "col-sm-2"></div>
+    </div>
+    <div class = "row">
+        <div class = "col-sm-2"></div>
+        <div class = "col-sm-8 info">
+            <form method="POST">
+                {% csrf_token %}
+                <table>
+                    {{ form }}
+                </table>
+                <input type="submit" value="Send" >
+            </form>
+        </div>
+        <div class = "col-sm-2"></div>
+    </div>
+</div>
+
+{% endblock %}
