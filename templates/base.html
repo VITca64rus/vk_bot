@@ -31,6 +31,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url "invite" %}">Рассылка приглашений</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "save_photos" %}">Скачать фото-вложения</a>
+        </li>
         </ul>
         <span class="navbar-text">
           {% if request.user.is_authenticated %}

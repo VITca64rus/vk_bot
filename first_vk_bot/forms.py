@@ -11,7 +11,7 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'token', 'password1', 'password2', )
 
 class IdForm(forms.Form):
-    token = forms.CharField(label='Ваш токен')
+    id = forms.CharField(label='Ид')
 
 class MessageForm(forms.Form):
     id = forms.CharField(label='id пользователя или группы')

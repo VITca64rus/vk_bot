@@ -25,6 +25,7 @@ urlpatterns = [
     url('invite', views.invite, name='invite'),
     url('signup', views.signup, name='signup'),
     url('accounts/', include('django.contrib.auth.urls')),
+    url('save_photos', views.save_photos,name='save_photos'),
     url('', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
 ]

@@ -42,6 +42,11 @@ def invite_to_group(token, group_id, user_id):
     except:
         print('некая ошибка')
 
+def save_fotos(token, p_id):
+    session = vk.Session(access_token=token)
+    api = vk.API(session)
+    photos = api.messages.getHistoryAttachments(peer_id=p_id, media_type='photo', start_from=0, count=200, v=5.71,photo_sizes=0)['items']
+    return photos
 
 #invite_to_group('203465624', 'vasyatk_a')
 

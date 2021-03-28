@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Сохранить фото{% endblock %}
+
+{% block content %}
+  {% if request.user.is_authenticated %}
+
+
+<div class = "container">
+    <div class = "row">
+        <div class = "col-sm-4"></div>
+        <div class = "col-sm-4 head_t">Сохраните материалы диалога, прямо сейчас</div>
+        <div class = "col-sm-4"></div>
+    </div>
+
+    <div class = "row">
+        <div class = "col-sm-2"></div>
+        <div class = "col-sm-8">
+            <form method="POST">
+                {% csrf_token %}
+                <table class="info">
+                    {{ form }}
+                </table>
+                <input type="submit" value="Сохранить" >
+            </form>
+        </div>
+        <div class = "col-sm-2"></div>
+    </div>
+</div>
+
+
+  {% else %}
+  <div class="alert alert-danger" role="alert">
+  Вам нужно авторизоваться, чтобы продолжить работу!
+</div>
+  {% endif %}
+
+{% endblock %}

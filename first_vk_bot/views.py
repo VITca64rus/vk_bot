@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import IdForm, MessageForm, InviteForm, SignUpForm
-from .vk_help import get_friends, send_message, invite_to_group
+from .vk_help import get_friends, send_message, invite_to_group, save_fotos
 import time
 import requests
 from django.contrib.auth import authenticate
+import os
 
 
 def index(request):
@@ -58,3 +59,44 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+def save_photos(request):
+    if request.method == "POST":
+        id_ = request.POST.get("id")
+        if request.user.is_authenticated:
+            token = request.user.token
+            photos=save_fotos(token, id_)
+            imgs=[]
+            for photo in photos:
+                dict= photo['attachment']['photo']
+                del dict['album_id']
+                del dict['date']
+                del dict['id']
+                del dict['owner_id']
+                del dict['has_tags']
+                del dict['access_key']
+                del dict['height']
+                del dict['text']
+                del dict['width']
+                keys=list(dict.keys())
+                razm=[]
+                for key in keys:
+                    razm.append(int(key[6:]))
+                imgs.append(photo['attachment']['photo']['photo_{}'.format(max(razm))])
+
+            os.mkdir(id_)
+            i=0
+            for img in imgs:
+                p = requests.get(img)
+                out = open("{}/img{}.jpg".format(id_,i), "wb")
+                out.write(p.content)
+                out.close()
+                i+=1
+
+        inviteform = IdForm()
+        return render(request, "invite.html", {"form": inviteform})
+    else:
+        inviteform = IdForm()
+        return render(request, "invite.html", {"form": inviteform})
+
+
