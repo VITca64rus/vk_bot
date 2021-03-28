@@ -70,11 +70,14 @@ def save_photos(request):
             os.mkdir(id_)
             i=0
             for img in imgs:
-                p = requests.get(img)
-                out = open("{}/img{}.jpg".format(id_,i), "wb")
-                out.write(p.content)
-                out.close()
-                i+=1
+                try:
+                    p = requests.get(img)
+                    out = open("{}/img{}.jpg".format(id_,i), "wb")
+                    out.write(p.content)
+                    out.close()
+                    i+=1
+                except:
+                    pass
 
         inviteform = IdForm()
         return render(request, "invite.html", {"form": inviteform})

@@ -51,7 +51,7 @@ def save_fotos(token, p_id):
     can = True
     while can:
         last_i=i
-        photos = api.messages.getHistoryAttachments(peer_id=p_id, media_type='photo', start_from=i, count=200, v=5.71,photo_sizes=0)['items']
+        photos = api.messages.getHistoryAttachments(peer_id=p_id, media_type='photo', start_from=i, count=200, v=5.71,photo_sizes=0,preserve_order=1)['items']
         print ('*' * 10)
         print (i)
         print(photos)
@@ -75,7 +75,8 @@ def save_fotos(token, p_id):
                 imgs.append (photo ['attachment'] ['photo'] ['photo_{}'.format (max (razm))])
                 print(photo ['attachment'] ['photo'] ['photo_{}'.format (max (razm))])
             except:
-                can = False
+                #can = False
+                pass
         if i==last_i:
             can=False
     return(imgs)
