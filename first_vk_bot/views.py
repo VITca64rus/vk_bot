@@ -6,6 +6,7 @@ import time
 import requests
 from django.contrib.auth import authenticate
 import os
+import shutil
 
 
 def index(request):
@@ -79,10 +80,24 @@ def save_photos(request):
                 except:
                     pass
 
+            shutil.make_archive ('{}'.format(id_), 'zip', '{}'.format(id_))
+            shutil.rmtree('{}'.format(id_))
+
+
+            file_path = '{}.zip'.format(id_)
+            if os.path.exists (file_path):
+                fh = open(file_path, 'rb')
+                response = HttpResponse (fh.read (), content_type="application/zip")
+                fh.close()
+                os.remove('{}.zip'.format (id_))
+                response ['Content-Disposition'] = 'inline; filename=' + os.path.basename (file_path)
+                return response
+
+
         inviteform = IdForm()
-        return render(request, "invite.html", {"form": inviteform})
+        return render(request, "save_photos.html", {"form": inviteform})
     else:
         inviteform = IdForm()
-        return render(request, "invite.html", {"form": inviteform})
+        return render(request, "save_photos.html", {"form": inviteform})
 
 

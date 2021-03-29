@@ -75,7 +75,6 @@ def save_fotos(token, p_id):
                 imgs.append (photo ['attachment'] ['photo'] ['photo_{}'.format (max (razm))])
                 print(photo ['attachment'] ['photo'] ['photo_{}'.format (max (razm))])
             except:
-                #can = False
                 pass
         if i==last_i:
             can=False

@@ -21,11 +21,11 @@ from django.urls import include
 urlpatterns = [
     #url('auth', views.auth_, name='auth'),
     url('index', views.index, name='index'),
+    url('save_photos', views.save_photos,name='save_photos'),
     url('send_message', views.send_message_, name='send_message'),
     url('invite', views.invite, name='invite'),
     url('signup', views.signup, name='signup'),
     url('accounts/', include('django.contrib.auth.urls')),
-    url('save_photos', views.save_photos,name='save_photos'),
     url('', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
 ]
