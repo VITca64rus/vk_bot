@@ -1,9 +1,5 @@
 import vk
 import time
-#Васин токен
-#session = vk.Session(access_token='d2c6fbed1ca379b65428f9187dfd191cd9eb3812336d0c08a483d521a06a6f33802e7c93ec8bee255d630')
-#Мой токен
-
 
 
 def get_friends(token, id):
